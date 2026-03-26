@@ -37,7 +37,8 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:blue
 * Select instance type and capacity
 
 📸 Cluster Infrastructure:
-![Cluster](attachment:5061d81a-fc0c-4719-bdd3-100d8b00b77e.png)
+<img width="1621" height="686" alt="image" src="https://github.com/user-attachments/assets/5d0846dc-ab1c-42f2-acd9-9bfcd623b6d0" />
+
 
 ---
 
