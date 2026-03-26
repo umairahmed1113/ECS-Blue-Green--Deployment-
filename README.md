@@ -1,4 +1,4 @@
-<img width="945" height="322" alt="image" src="https://github.com/user-attachments/assets/168d742a-6fc4-45f6-890a-f51c2ac45bac" /># ECS EC2 Blue-Green Deployment (AWS)
+# ECS EC2 Blue-Green Deployment (AWS)
 
 This guide explains how to perform a **Blue-Green deployment using Amazon ECS (EC2 launch type)** with a single ECR repository.
 
@@ -26,7 +26,7 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:blue
 ```
 
 📸 ECR Repository:
-
+<img width="945" height="322" alt="image" src="https://github.com/user-attachments/assets/168d742a-6fc4-45f6-890a-f51c2ac45bac" />
 
 ---
 
