@@ -205,4 +205,5 @@ Just pick a new image from ECR and update the task one to task two, don't change
 ## 🎉 Result
 
 Blue-Green deployment successfully implemented 🚀
-This is manually done, but with the help og code deploy, we can automate it 
+
+This is manually done, but with the help of code deploy, we can automate it 
