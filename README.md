@@ -48,8 +48,34 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:blue
 * Container image: ECR blue image
 * Port: 80
 
-📸 Task Definition Selection:
-![Task](attachment:1d6cb158-8b52-4ce1-97cb-56b0fdd81e11.png)
+{
+  "family": "blue-green-task",
+  "containerDefinitions": [
+    {
+      "name": "blue-green",
+      "image": "id.dkr.ecr.us-east-1.amazonaws.com/blue-green@sha256:c5782dac1f9e03f05af415441c04775df17acb54c6a7b1a6de54bd7646c766e1",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ]
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::id:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "1024",
+  "memory": "1024",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}
+
 
 ---
 
@@ -64,7 +90,9 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:blue
 * Set **Bake time (e.g., 2 minutes)**
 
 📸 Deployment Configuration:
-![Deployment](attachment:93b035cb-3fc7-4a2d-a04f-82a657d025dd.png)
+<img width="1628" height="748" alt="image" src="https://github.com/user-attachments/assets/26fb295e-d86c-4f3a-b56e-6a0d626f2063" />
+<img width="1628" height="748" alt="image" src="https://github.com/user-attachments/assets/4fbb2a3f-c107-46bf-81e9-7a7483277f62" />
+
 
 ---
 
@@ -81,7 +109,8 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:blue
 * Listener: Port 80 (HTTP)
 
 📸 Load Balancer:
-![LB](attachment:70329506-108d-478a-b972-953e06761885.png)
+<img width="1628" height="748" alt="image" src="https://github.com/user-attachments/assets/dbffe856-ccd8-4834-a148-1c2e792ebe22" />
+
 
 ### Target Groups
 
@@ -91,7 +120,8 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:blue
   * `green`
 
 📸 Target Groups:
-![TG](attachment\:d26ffc13-6ddf-4259-a3eb-e61458e482f6.png)
+<img width="1628" height="748" alt="image" src="https://github.com/user-attachments/assets/79cc367b-c8e2-495f-8e6c-68e958c728a4" />
+
 
 ---
 
@@ -101,12 +131,13 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:blue
 * Open in browser
 
 📸 Blue Environment:
-![Blue](attachment\:c3314e1c-e429-421f-a0fd-c8690a4eed9d.png)
+<img width="1913" height="930" alt="image" src="https://github.com/user-attachments/assets/ee52c4a9-2d96-4be2-bb62-25ba25e6b173" />
+
 
 ---
 
 ## 🔄 Step 8: Deploy Green Version
-
+In same ecr repo in which blue is deployed 
 ```bash
 docker build -t blue-green:green .
 docker tag blue-green:green <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:green
@@ -118,11 +149,9 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:green
 ## 🔁 Step 9: Update Service
 
 * Create new task revision
+Just pick a new image from ECR and update the task one to task two, don't change anything; just change the task version
 * Update service
-
-📸 Service Update:
-![Update](attachment\:ed8f7a94-0456-4b2a-84be-d8ad4d8308cf.png)
-
+  In service, just update the service from task one to task two
 ---
 
 ## 📊 Step 10: Observe Deployment
@@ -133,10 +162,12 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:green
   * Green
 
 📸 Health & Metrics:
-![Metrics](attachment\:d05cf557-1573-4c68-bfdc-0821d3f3c609.png)
+<img width="1591" height="537" alt="image" src="https://github.com/user-attachments/assets/9d9da0bb-2ce5-41ba-99dd-1c4db11c354d" />
+
 
 📸 Tasks:
-![Tasks](attachment:33757972-d726-47b2-b762-d3b6e2f4722f.png)
+<img width="1752" height="799" alt="image" src="https://github.com/user-attachments/assets/6c8d555d-0752-46a8-b0d4-d035e41cf0e4" />
+
 
 ---
 
@@ -146,10 +177,13 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:green
 * After bake time → Blue terminated
 
 📸 Green Environment:
-![Green](attachment\:fff6ec89-5822-438d-a0d4-19ccd392f0fc.png)
+<img width="1912" height="926" alt="image" src="https://github.com/user-attachments/assets/88e53c0d-eca1-4146-8376-ba0f9a11ed79" />
+
 
 📸 Final State:
-![Final](attachment:1f3a68a4-7047-49c1-b053-ae9b6b4ed064.png)
+<img width="1895" height="703" alt="image" src="https://github.com/user-attachments/assets/a99fcbeb-b8e6-4b60-b334-acbe7cf7f35f" />
+<img width="1895" height="703" alt="image" src="https://github.com/user-attachments/assets/27536450-f6fb-4a43-8bc5-63dbc867d2ca" />
+
 
 ---
 
@@ -171,3 +205,4 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/blue-green:green
 ## 🎉 Result
 
 Blue-Green deployment successfully implemented 🚀
+This is manually done, but with the help og code deploy, we can automate it 
